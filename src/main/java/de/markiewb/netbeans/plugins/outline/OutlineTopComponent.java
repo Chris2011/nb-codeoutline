@@ -39,9 +39,7 @@ import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 import org.openide.util.Utilities;
 
-/**
- * Top component which displays something.
- */
+
 @ConvertAsProperties(
         dtd = "-//de.markiewb.netbeans.plugins.outline//Outline//EN",
         autostore = false
@@ -53,7 +51,7 @@ import org.openide.util.Utilities;
 )
 @TopComponent.Registration(mode = "properties", openAtStartup = false)
 @ActionID(category = "Window", id = "de.markiewb.netbeans.plugins.outline.OutlineTopComponent")
-@ActionReference(path = "Menu/Window" /*, position = 333 */)
+@ActionReference(path = "Menu/Window/Tools" , position = 2000, separatorBefore = 1999 )
 @TopComponent.OpenActionRegistration(
         displayName = "#CTL_OutlineAction",
         preferredID = "OutlineTopComponent"
