@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.markiewb.netbeans.plugins</groupId>
-    <artifactId>Outline</artifactId>
+    <artifactId>codeoutline</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <build>
@@ -48,8 +48,64 @@
             <artifactId>org-netbeans-api-annotations-common</artifactId>
             <version>RELEASE80</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-text</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-windows</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-util-lookup</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-awt</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-settings</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-editor</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-editor-lib2</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <name>Code outline</name>
+    <description>This plugins adds a code overview/outline for the current editor. 
+
+&lt;h2&gt;Updates&lt;/h2&gt;
+&lt;h3&gt;1.0.0:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;initial version&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+Provide defects, request for enhancements and feedback at &lt;a href="https://github.com/markiewb/nb-codeoutline/issues"&gt;https://github.com/markiewb/nb-codeoutline/issues&lt;/a&gt;
+&lt;/p&gt;
+Compatible to NetBeans 8.0+ and JDK7+.
+
+&lt;p&gt;License: GPL 2 - &lt;a href="http://www.gnu.org/licenses/gpl-2.0.txt"&gt;http://www.gnu.org/licenses/gpl-2.0.txt&lt;/a&gt;. This plugin integrates some sourcecode from &lt;a href="http://www.bluej.org/"&gt;http://www.bluej.org/&lt;/a&gt;. The copyright for BlueJ is held by M. Kölling and J. Rosenberg.
+BlueJ is available under the GNU General Public License version 2 with the Classpath Exception&lt;/p&gt;</description>
 </project>

@@ -107,6 +107,11 @@ public class NaviView extends JPanel implements AdjustmentListener
         scrollBar.addAdjustmentListener(this);
         documentChangedLength();
     }
+
+    private Color getBackoundColor() {
+//        return MoeSyntaxDocument.getBackgroundColor();
+        return Color.WHITE;
+    }
     
     /**
      * Get the document displayed by this NaviView.
@@ -346,8 +351,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         int myHeight = imgBuffer.getHeight();
         View view = editorPane.getUI().getRootView(editorPane);
 
-//        Color background = MoeSyntaxDocument.getBackgroundColor();
-        Color background = Color.BLACK;
+        Color background = getBackoundColor();
         
         Graphics2D g = imgBuffer.createGraphics();
 
@@ -498,7 +502,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         
         g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, null);
         
-        Color background = MoeSyntaxDocument.getBackgroundColor();
+        Color background = getBackoundColor();
         
         int lx = insets.left;
         int rx = getWidth() - insets.right;

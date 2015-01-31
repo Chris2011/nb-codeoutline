@@ -39,13 +39,14 @@ import javax.swing.text.TabExpander;
 import javax.swing.text.ViewFactory;
 
 import bluej.Config;
+import javax.swing.text.Document;
 
 /**
  * A view for the NaviView component.
  * 
  * @author Davin McCall
  */
-public class NaviviewView extends BlueJSyntaxView
+public class NaviviewView extends /*BlueJSyntaxView*/MoePlainView
 {
     private static final boolean SCOPE_HIGHLIGHTING = true;
     private static final boolean HIGHLIGHT_METHODS_ONLY = true;
@@ -65,9 +66,9 @@ public class NaviviewView extends BlueJSyntaxView
         this.naviView = naviView;
     }
     
-    @Override
+//    @Override
     protected void paintTaggedLine(Segment line, int lineIndex, Graphics g,
-            int x, int y, MoeSyntaxDocument document, Color def,
+            int x, int y, Document document, Color def,
             Element lineElement, TabExpander tx)
     {
         // Painting at such a small font size means the font appears very light.
@@ -101,12 +102,12 @@ public class NaviviewView extends BlueJSyntaxView
             imgG.setColor(g.getColor());
 
             if (SYNTAX_COLOURING) {
-                if (document.getParsedNode() != null) {
-                    super.paintTaggedLine(line, lineIndex, imgG, x - clipBounds.x,
-                            metrics.getAscent(), document, def, lineElement, tx);
-                } else {
-                    paintPlainLine(lineIndex, imgG, x - clipBounds.x, metrics.getAscent());
-                }
+//                if (document.getParsedNode() != null) {
+//                    super.paintTaggedLine(line, lineIndex, imgG, x - clipBounds.x,
+//                            metrics.getAscent(), document, def, lineElement, tx);
+//                } else {
+//                    paintPlainLine(lineIndex, imgG, x - clipBounds.x, metrics.getAscent());
+//                }
             } else {
                 paintPlainLine(lineIndex, imgG, x - clipBounds.x, metrics.getAscent());
             }
@@ -129,6 +130,13 @@ public class NaviviewView extends BlueJSyntaxView
         }
         catch (BadLocationException ble) {}
     }
+    /**
+     * Paint a line of text, without syntax colouring. This is provided as a convenience for subclasses.
+     */
+    protected void paintPlainLine(int lineIndex, Graphics g, int x, int y)
+    {
+        super.drawLine(lineIndex, g, x, y);
+    }
     
     @Override
     public void paint(Graphics g, Shape a)
@@ -139,20 +147,20 @@ public class NaviviewView extends BlueJSyntaxView
             clip = a.getBounds();
         }
         
-        if (SCOPE_HIGHLIGHTING) {
-            // Scope highlighting
-            MoeSyntaxDocument document = (MoeSyntaxDocument)getDocument();
-            if (document.getParsedNode() != null) {
-                int spos = viewToModel(bounds.x, clip.y, a, new Position.Bias[1]);
-                int epos = viewToModel(bounds.x, clip.y + clip.height - 1, a, new Position.Bias[1]);
-
-                Element map = getElement();
-                int firstLine = map.getElementIndex(spos);
-                int lastLine = map.getElementIndex(epos);
-                paintScopeMarkers(naviView.getScalingImgBufferGraphics(g), document, a, firstLine, lastLine,
-                        HIGHLIGHT_METHODS_ONLY, true);
-            }
-        }
+//        if (SCOPE_HIGHLIGHTING) {
+//            // Scope highlighting
+//            Document document = getDocument();
+//            if (document.getParsedNode() != null) {
+//                int spos = viewToModel(bounds.x, clip.y, a, new Position.Bias[1]);
+//                int epos = viewToModel(bounds.x, clip.y + clip.height - 1, a, new Position.Bias[1]);
+//
+//                Element map = getElement();
+//                int firstLine = map.getElementIndex(spos);
+//                int lastLine = map.getElementIndex(epos);
+//                paintScopeMarkers(naviView.getScalingImgBufferGraphics(g), document, a, firstLine, lastLine,
+//                        HIGHLIGHT_METHODS_ONLY, true);
+//            }
+//        }
 
         super.paint(g, a);
     }

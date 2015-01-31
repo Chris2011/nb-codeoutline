@@ -26,6 +26,7 @@ import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
+import org.openide.text.NbDocument;
 
 /**
  * An EditorKit implementation for the NaviView. The main purpose is to provide a NaviviewView as
@@ -53,9 +54,11 @@ public class NaviviewEditorKit extends DefaultEditorKit implements ViewFactory
         return new NaviviewView(elem, naviView);
     }
     
-    @Override
-    public Document createDefaultDocument()
-    {
-        return new MoeSyntaxDocument();
-    }
+//    @Override
+//    public Document createDefaultDocument()
+//    {
+////        return new NbDocument();
+////        return null;
+//        return null;
+//    }
 }
