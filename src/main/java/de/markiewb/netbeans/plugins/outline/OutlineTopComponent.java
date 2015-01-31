@@ -1,7 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ This file is part of the NetBeans Code Outline plugin. 
+ Copyright (C) 2014 Benno Markiewicz 
+
+ This program is free software; you can redistribute it and/or 
+ modify it under the terms of the GNU General Public License 
+ as published by the Free Software Foundation; either version 2 
+ of the License, or (at your option) any later version. 
+
+ This program is distributed in the hope that it will be useful, 
+ but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ GNU General Public License for more details. 
+
+ You should have received a copy of the GNU General Public License 
+ along with this program; if not, write to the Free Software 
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
  */
 package de.markiewb.netbeans.plugins.outline;
 
@@ -52,10 +65,13 @@ import org.openide.util.Utilities;
         preferredID = "OutlineTopComponent"
 )
 @Messages({
-    "CTL_OutlineAction=Outline",
-    "CTL_OutlineTopComponent=Outline Window",
-    "HINT_OutlineTopComponent=This is a Outline window"
+    "CTL_OutlineAction=Code Outline",
+    "CTL_OutlineTopComponent=Code Outline",
+    "HINT_OutlineTopComponent=Code Outline"
 })
+/**
+ * Integrates the code outline component of BlueJ into the NetBeans.
+ */
 public final class OutlineTopComponent extends TopComponent implements LookupListener {
 
     private Lookup.Result<EditorCookie> lookupResult;
@@ -79,9 +95,14 @@ public final class OutlineTopComponent extends TopComponent implements LookupLis
                 return;
             }
             JEditorPane editorPane = openedPanes[0];
-
-            JTextComponent lastFocusedComponent = editorPane;
-            Container parent = lastFocusedComponent.getParent().getParent();
+            Container parent = editorPane.getParent();
+            if (null == parent) {
+                return;
+            }
+            parent = parent.getParent();
+            if (null == parent) {
+                return;
+            }
             if (parent instanceof JScrollPane) {
 
                 JScrollPane scrollPane = (JScrollPane) parent;

@@ -12,6 +12,17 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <version>3.13</version>
                 <extensions>true</extensions>
+                <configuration>
+                    <!-- keep it for backwards compatibility to previous versions-->
+                    <codeNameBase>de.markiewb.netbeans.plugins.codeoutline</codeNameBase>
+
+                    <licenseFile>gpl-2.0.txt</licenseFile>
+                    <author>Benno Markiewicz (benno.markiewicz@googlemail.com)</author>
+                    <homePageUrl>https://github.com/markiewb/nb-codeoutline</homePageUrl>
+                    <keystore>nbproject/private/keystore</keystore>
+                    <keystorealias>myself</keystorealias>
+                    <licenseName>GPL-2</licenseName>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
