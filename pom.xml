@@ -91,14 +91,16 @@
     <name>Code outline</name>
     <description>This plugins adds a code overview/outline for the current editor. 
 
-&lt;img src="https://raw.github.com/markiewb/nb-codeoutline/master/doc/screenshot1.1.png"/&gt;
-
+&lt;p&gt;
+&lt;img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.1.png"/&gt;
+ &lt;/p&gt; 
 &lt;h2&gt;Updates&lt;/h2&gt;
 &lt;h3&gt;1.1.0:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/4"&gt;Feature 4&lt;/a&gt;]: Attach outline next to editor (removes the explicite window from previous version)&lt;/li&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/6"&gt;Bugfix 6&lt;/a&gt;]: Fixed NPE, when no document is available&lt;/li&gt;
-
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/7"&gt;Task 7&lt;/a&gt;]: Add donation link&lt;/li&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/9"&gt;Task 9&lt;/a&gt;]: Provide signed version for update center&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;1.0.0:&lt;/h3&gt;
 &lt;ul&gt;
