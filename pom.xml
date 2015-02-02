@@ -101,7 +101,10 @@
 Provide defects, request for enhancements and feedback at &lt;a href="https://github.com/markiewb/nb-codeoutline/issues"&gt;https://github.com/markiewb/nb-codeoutline/issues&lt;/a&gt;
 &lt;/p&gt;
 Compatible to NetBeans 8.0+ and JDK7+.
+&lt;p&gt;
+&lt;a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=K4CMP92RZELE2"&gt;&lt;img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" alt="btn_donate_SM.gif"&gt;&lt;/a&gt;
 
+&lt;/p&gt;
 &lt;p&gt;License: GPL 2 - &lt;a href="http://www.gnu.org/licenses/gpl-2.0.txt"&gt;http://www.gnu.org/licenses/gpl-2.0.txt&lt;/a&gt;. This plugin integrates some sourcecode from &lt;a href="http://www.bluej.org/"&gt;http://www.bluej.org/&lt;/a&gt;. The copyright for BlueJ is held by M. Kölling and J. Rosenberg.
 BlueJ is available under the GNU General Public License version 2 with the Classpath Exception&lt;/p&gt;</description>
 </project>
