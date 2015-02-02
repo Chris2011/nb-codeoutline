@@ -95,7 +95,7 @@ public final class OutlineTopComponent extends TopComponent implements LookupLis
             if (null == parent) {
                 return;
             }
-            if (parent instanceof JScrollPane) {
+            if (parent instanceof JScrollPane && null != sourceDocument) {
 
                 JScrollPane scrollPane = (JScrollPane) parent;
                 scrollPane.getVerticalScrollBar().setUnitIncrement(16);
