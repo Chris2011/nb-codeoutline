@@ -53,6 +53,11 @@ import javax.swing.text.Position.Bias;
 
 import bluej.Config;
 import java.util.logging.Logger;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.StyleConstants;
+import org.netbeans.api.editor.mimelookup.MimeLookup;
+import org.netbeans.api.editor.settings.FontColorSettings;
+import org.netbeans.modules.editor.NbEditorUtilities;
 //import bluej.parser.nodes.ParsedNode;
 //import bluej.parser.nodes.NodeTree.NodeAndPosition;
 
@@ -65,7 +70,7 @@ import java.util.logging.Logger;
 public class NaviView extends JPanel implements AdjustmentListener
 {
     private static final Image frame = Config.getFixedImageAsIcon("naviview-frame.png").getImage();
-    private static final int frw = 5;  // frame width
+    private static final int frw = 0;  // frame width
     
     private Document document;
     private JEditorPane editorPane;
@@ -110,8 +115,11 @@ public class NaviView extends JPanel implements AdjustmentListener
     }
 
     private Color getBackoundColor() {
-//        return MoeSyntaxDocument.getBackgroundColor();
-        return Color.WHITE;
+        String mimeType = NbEditorUtilities.getMimeType(editorPane);
+        FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
+        AttributeSet fontColors = fcs.getFontColors("default");
+        Color bg = (Color) fontColors.getAttribute(StyleConstants.Background);
+        return bg;
     }
     
     /**
@@ -507,7 +515,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, null);
         
         Color background = getBackoundColor();
-        
+
         int lx = insets.left;
         int rx = getWidth() - insets.right;
         int ty = insets.top;
@@ -535,7 +543,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         
         // Fill the area between the document end and bottom of the component
         if (docBottom < clipBounds.y + clipBounds.height) {
-            Color myBgColor = getBackground();
+            Color myBgColor = getBackoundColor();
             // This odd statement is necessary to avoid a weird Mac OS X bug
             // (OS X 10.6.2, Java 1.6.0_17) with repaint which occurs when
             // a tooltip is showing.
