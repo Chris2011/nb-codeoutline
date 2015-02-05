@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.markiewb.netbeans.plugins</groupId>
     <artifactId>codeoutline</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <build>
         <plugins>
@@ -87,6 +87,8 @@
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <netbeans.run.params.ide/>
+        <netbeans.run.params>-J-javaagent:"${current.jrebel.agent.path}" -J-Drebel.log=true ${netbeans.run.params.ide}</netbeans.run.params>
     </properties>
     <name>Code outline</name>
     <description>This plugins adds a code overview/outline for the current editor. 

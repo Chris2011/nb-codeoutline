@@ -52,6 +52,7 @@ import javax.swing.text.View;
 import javax.swing.text.Position.Bias;
 
 import bluej.Config;
+import java.util.logging.Logger;
 //import bluej.parser.nodes.ParsedNode;
 //import bluej.parser.nodes.NodeTree.NodeAndPosition;
 
@@ -357,7 +358,8 @@ public class NaviView extends JPanel implements AdjustmentListener
 
         if (prefViewHeight > myHeight) {
             // scale!
-            int width = Math.max(imgBuffer.getWidth() * prefViewHeight / myHeight, 1);
+            //potential bugfix: https://github.com/markiewb/nb-codeoutline/issues/11
+            int width = Math.min(imgBuffer.getWidth() * prefViewHeight / myHeight, 400);
             int ytop = top * prefViewHeight / myHeight;
             int ybtm = (bottom * prefViewHeight + myHeight - 1) / myHeight;
             int height = ybtm - ytop;
@@ -381,6 +383,7 @@ public class NaviView extends JPanel implements AdjustmentListener
                 bottom = top + (height * myHeight / prefViewHeight);
             }
             
+            Logger.getLogger("NaviView").info(String.format("Tried to create an image %s x %s top=%s, bottom=%s, myHeight=%s, ytop=%s,ybtm=%s, which may lead to an OOME.", width, height, top, bottom, myHeight, ytop,ybtm));
             // Create a buffered image to use
             BufferedImage bimage = g.getDeviceConfiguration().createCompatibleImage(width, height,Transparency.TRANSLUCENT);
             Map<Object,Object> hints = new HashMap<Object,Object>();
@@ -581,7 +584,8 @@ public class NaviView extends JPanel implements AdjustmentListener
                 return;
             }
         }
-        
+//        Logger.getLogger("NaviView").severe(String.format("image buffer %sx%s %sx%s", w,h, getWidth(), getHeight()));
+
         BufferedImage oldImgBuffer = imgBuffer;
         
         if (g instanceof Graphics2D) {
