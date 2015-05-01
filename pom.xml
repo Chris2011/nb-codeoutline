@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.markiewb.netbeans.plugins</groupId>
     <artifactId>codeoutline</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <packaging>nbm</packaging>
     <build>
         <plugins>
@@ -84,6 +84,11 @@
             <artifactId>org-netbeans-modules-editor-lib2</artifactId>
             <version>RELEASE80</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-editor-mimelookup</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -97,6 +102,11 @@
 &lt;img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.1.png"/&gt;
  &lt;/p&gt; 
 &lt;h2&gt;Updates&lt;/h2&gt;
+&lt;h3&gt;1.2.0:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/4"&gt;Feature 17&lt;/a&gt;]: Option to disablement in the View menu #17&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h3&gt;1.1.0:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/4"&gt;Feature 4&lt;/a&gt;]: Attach outline next to editor (removes the explicite window from previous version)&lt;/li&gt;

@@ -17,13 +17,9 @@
  */
 package de.markiewb.netbeans.plugins.outline;
 
-import bluej.editor.moe.NaviView;
 import java.awt.Container;
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -32,15 +28,11 @@ import javax.swing.text.JTextComponent;
  */
 public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFactory {
 
-    private final static int NAVIVIEW_WIDTH = 90;       // width of the "naviview" (min-source) box
-    private boolean enabled = true;
+    public static final String KEY_OUTLINE = "enable.outline"; // NOI18N
+    public static final boolean DEFAULT_OUTLINE = true;
 
     @Override
     public JComponent createSideBar(JTextComponent jtc) {
-
-        if (!enabled) {
-            return null;
-        }
 
         Container parent = jtc.getParent();
         if (null == parent) {
@@ -53,13 +45,8 @@ public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFac
         if (parent instanceof JScrollPane && null != jtc.getDocument()) {
 
             JScrollPane scrollPane = (JScrollPane) parent;
-            scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-            NaviView naviView = new NaviView(jtc.getDocument(), scrollPane.getVerticalScrollBar());
-            naviView.setPreferredSize(new Dimension(NAVIVIEW_WIDTH, 0));
-            naviView.setMaximumSize(new Dimension(NAVIVIEW_WIDTH, Integer.MAX_VALUE));
-            naviView.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-            return naviView;
+            return new NaviViewExt(jtc.getDocument(), scrollPane.getVerticalScrollBar());
         }
         return null;
 
