@@ -1,10 +1,20 @@
-# nb-codeoutline
-This plugins adds a code overview/outline for the current editor. Implements https://netbeans.org/bugzilla/show_bug.cgi?id=199663
+This plugins adds a code overview/outline for the current editor. Implements  <a href="https://netbeans.org/bugzilla/show_bug.cgi?id=199663">https://netbeans.org/bugzilla/show_bug.cgi?id=199663</a>
 
 <p>
 <img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.1.png"/>
  </p> 
 <h2>Updates</h2>
+<h3>1.2.0:</h3>
+<ul>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/17">Feature 17</a>]: Add option for disablement in the View menu</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/10">Feature 10</a>]: Add options dialog to Tools|Options|Misc and make width of the outline configureable</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/15">Feature 15</a>]: Make position the outline configureable (in options dialog)</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/18">Task 18</a>]: UI: Remove border</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/14">Bugfix 14</a>]: Fixed: java.lang.ArithmeticException</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/11">Bugfix 11</a>]: Fixed: OOME when invoking ShowEditorOnlyAction</li>
+
+</ul>
+
 <h3>1.1.0:</h3>
 <ul>
 <li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/4">Feature 4</a>]: Attach outline next to editor (removes the explicite window from previous version)</li>
