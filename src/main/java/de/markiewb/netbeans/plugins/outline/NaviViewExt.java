@@ -21,6 +21,7 @@ import de.markiewb.netbeans.plugins.outline.options.Options;
 import bluej.editor.moe.NaviView;
 import de.markiewb.netbeans.plugins.outline.options.CodeoutlineOptionsPanel;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.PreferenceChangeListener;
 import java.util.prefs.Preferences;
@@ -30,6 +31,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.text.Document;
 import org.netbeans.api.editor.mimelookup.MimeLookup;
 import org.netbeans.api.editor.mimelookup.MimePath;
+import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import org.openide.util.NbPreferences;
 import org.openide.util.WeakListeners;
 
@@ -57,7 +60,6 @@ public class NaviViewExt extends NaviView implements PreferenceChangeListener {
 
         //initial setup from configuration
         preferenceChange(null);
-        setupWidth(Options.getWidth());
     }
 
     private void setupWidth(int width) {
@@ -78,6 +80,49 @@ public class NaviViewExt extends NaviView implements PreferenceChangeListener {
                 || Options.KEY_WIDTH.equals(evt.getKey())) {
             setupWidth(Options.getWidth());
         }
+        if (evt == null
+                || Options.KEY_POSITION.equals(evt.getKey())) {
+            updatePosition();
+        }
+    }
+
+    private void updatePosition() {
+        /**
+         * <pre>
+         * <filesystem>
+         * <folder name="Editors">
+         * <folder name="SideBar">
+         * <file name="de-markiewb-netbeans-plugins-outline-OutlineSideBarFactory.instance">
+         * <attr name="position" intvalue="10000"/>
+         * <attr name="location" stringvalue="East"/>
+         * <attr name="scrollable" boolvalue="false"/>
+         * </file>
+         * </folder>
+         * </folder>
+         * </filesystem>
+         * </pre>
+         */
+        try {
+
+            FileObject configFile = FileUtil.getConfigFile("Editors/SideBar/de-markiewb-netbeans-plugins-outline-OutlineSideBarFactory.instance");
+            Options.Position position = Options.getPosition();
+            switch (position) {
+                case LEFT:
+                    //does not work at runtime, needs a restart
+                    configFile.setAttribute("location", "West");
+                    break;
+                case RIGHT:
+                    //does not work at runtime, needs a restart
+                    configFile.setAttribute("location", "East");
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            this.revalidate();
+
+        } catch (IOException iOException) {
+        }
+
     }
 
 }
