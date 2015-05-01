@@ -232,10 +232,11 @@ public class NaviView extends JPanel implements AdjustmentListener
     {
         Insets insets = getInsets();
         int height = Math.min(prefViewHeight, getHeight() - insets.top - insets.bottom - 2*frw); 
+        final int maximum = Math.max(scrollBar.getMaximum(), 1);
         
-        int topV = e.getValue() * height / (scrollBar.getMaximum()) + insets.top + frw;
+        int topV = e.getValue() * height / (maximum) + insets.top + frw;
         int bottomV = (e.getValue() + scrollBar.getVisibleAmount()) * height
-                / scrollBar.getMaximum() + insets.top + frw;
+                / maximum + insets.top + frw;
 
         repaint(0, topV - frw, getWidth(), bottomV - topV + 2 + frw*2);
         repaint(0, currentViewPos - frw, getWidth(), currentViewPosBottom - currentViewPos + 2 + frw*2);

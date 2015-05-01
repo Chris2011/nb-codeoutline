@@ -104,7 +104,8 @@
 &lt;h2&gt;Updates&lt;/h2&gt;
 &lt;h3&gt;1.2.0:&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/4"&gt;Feature 17&lt;/a&gt;]: Option to disablement in the View menu #17&lt;/li&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/17"&gt;Feature 17&lt;/a&gt;]: Option to disablement in the View menu #17&lt;/li&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/14"&gt;Bugfix 14&lt;/a&gt;]: Fixed: java.lang.ArithmeticException #14&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3&gt;1.1.0:&lt;/h3&gt;
