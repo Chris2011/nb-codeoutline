@@ -44,7 +44,7 @@ public class NaviViewExt extends NaviView implements PreferenceChangeListener {
 
     public NaviViewExt(Document document, JScrollBar scrollBar) {
         super(document, scrollBar);
-        this.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        this.setBorder(BorderFactory.createEmptyBorder());
 
         {
             //add listener for View|Show Outline
