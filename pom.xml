@@ -89,6 +89,16 @@
             <artifactId>org-netbeans-modules-editor-mimelookup</artifactId>
             <version>RELEASE80</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-modules-options-api</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-awt</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -105,6 +115,7 @@
 &lt;h3&gt;1.2.0:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/17"&gt;Feature 17&lt;/a&gt;]: Add option for disablement in the View menu&lt;/li&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/17"&gt;Feature 10&lt;/a&gt;]: Add options dialog to Tools|Options|Misc and make width of the outline configureable&lt;/li&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/14"&gt;Bugfix 14&lt;/a&gt;]: Fixed: java.lang.ArithmeticException&lt;/li&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/11"&gt;Bugfix 11&lt;/a&gt;]: Fixed: OOME when invoking ShowEditorOnlyAction&lt;/li&gt;
 

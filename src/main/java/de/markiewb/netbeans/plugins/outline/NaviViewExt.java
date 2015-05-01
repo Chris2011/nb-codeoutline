@@ -19,6 +19,7 @@ package de.markiewb.netbeans.plugins.outline;
 
 import de.markiewb.netbeans.plugins.outline.options.Options;
 import bluej.editor.moe.NaviView;
+import de.markiewb.netbeans.plugins.outline.options.CodeoutlineOptionsPanel;
 import java.awt.Dimension;
 import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.PreferenceChangeListener;
@@ -29,6 +30,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.text.Document;
 import org.netbeans.api.editor.mimelookup.MimeLookup;
 import org.netbeans.api.editor.mimelookup.MimePath;
+import org.openide.util.NbPreferences;
 import org.openide.util.WeakListeners;
 
 /**
@@ -37,30 +39,45 @@ import org.openide.util.WeakListeners;
  */
 public class NaviViewExt extends NaviView implements PreferenceChangeListener {
 
-    private final static int NAVIVIEW_WIDTH = 90;       // width of the "naviview" (min-source) box
-//    private final Preferences prefs;
-
     public NaviViewExt(Document document, JScrollBar scrollBar) {
         super(document, scrollBar);
-        this.setPreferredSize(new Dimension(NAVIVIEW_WIDTH, 0));
-        this.setMaximumSize(new Dimension(NAVIVIEW_WIDTH, Integer.MAX_VALUE));
         this.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
-        Preferences prefs = MimeLookup.getLookup(MimePath.EMPTY).lookup(Preferences.class);
-        prefs.addPreferenceChangeListener(WeakListeners.create(PreferenceChangeListener.class, this, prefs));
+        {
+            //add listener for View|Show Outline
+            Preferences prefs = MimeLookup.getLookup(MimePath.EMPTY).lookup(Preferences.class);
+            prefs.addPreferenceChangeListener(WeakListeners.create(PreferenceChangeListener.class, this, prefs));
+        }
+
+        {
+            //add listener for preferences set by options dialog
+            Preferences prefs = NbPreferences.forModule(CodeoutlineOptionsPanel.class);
+            prefs.addPreferenceChangeListener(WeakListeners.create(PreferenceChangeListener.class, this, prefs));
+        }
 
         //initial setup from configuration
         preferenceChange(null);
+        setupWidth(Options.getWidth());
+    }
+
+    private void setupWidth(int width) {
+        this.setPreferredSize(new Dimension(width, 0));
+        this.setMaximumSize(new Dimension(width, Integer.MAX_VALUE));
+        //relayout for on the fly-layouting
+        this.revalidate();
     }
 
     @Override
     public void preferenceChange(PreferenceChangeEvent evt) {
 
         if (evt == null
-                || OutlineSideBarFactory.KEY_OUTLINE.equals(evt.getKey())) {
+                || Options.KEY_OUTLINE.equals(evt.getKey())) {
             setVisible(Options.isVisible());
         }
+        if (evt == null
+                || Options.KEY_WIDTH.equals(evt.getKey())) {
+            setupWidth(Options.getWidth());
+        }
     }
-
 
 }

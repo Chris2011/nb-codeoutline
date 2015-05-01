@@ -17,10 +17,10 @@
  */
 package de.markiewb.netbeans.plugins.outline.options;
 
-import de.markiewb.netbeans.plugins.outline.OutlineSideBarFactory;
 import java.util.prefs.Preferences;
 import org.netbeans.api.editor.mimelookup.MimeLookup;
 import org.netbeans.api.editor.mimelookup.MimePath;
+import org.openide.util.NbPreferences;
 
 /**
  *
@@ -28,10 +28,22 @@ import org.netbeans.api.editor.mimelookup.MimePath;
  */
 public class Options {
 
+    public static final boolean DEFAULT_OUTLINE = true;
+    public static final String KEY_OUTLINE = "enable.outline";
+    public static final String KEY_WIDTH = "outline.width";
+    static int WIDTH_DEFAULT = 90;
+
+    public static int getWidth() {
+        return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getInt(KEY_WIDTH, WIDTH_DEFAULT);
+    }
+
     public static boolean isVisible() {
         Preferences prefs = MimeLookup.getLookup(MimePath.EMPTY).lookup(Preferences.class);
-        boolean visible = prefs.getBoolean(OutlineSideBarFactory.KEY_OUTLINE, OutlineSideBarFactory.DEFAULT_OUTLINE);
-        return visible;
+        return prefs.getBoolean(Options.KEY_OUTLINE, Options.DEFAULT_OUTLINE);
+    }
+
+    static void setWidth(Integer value) {
+        NbPreferences.forModule(CodeoutlineOptionsPanel.class).putInt(KEY_WIDTH, value);
     }
 
 }

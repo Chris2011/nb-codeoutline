@@ -18,6 +18,7 @@
 package de.markiewb.netbeans.plugins.outline.ui;
 
 import de.markiewb.netbeans.plugins.outline.OutlineSideBarFactory;
+import de.markiewb.netbeans.plugins.outline.options.Options;
 import java.awt.event.ActionEvent;
 import org.netbeans.api.editor.EditorActionRegistration;
 import org.openide.util.NbBundle;
@@ -25,8 +26,8 @@ import org.openide.util.NbBundle;
 @EditorActionRegistration(name = "toggle-outline-view",
         menuPath = "View",
         menuPosition = 1000,
-        preferencesKey = OutlineSideBarFactory.KEY_OUTLINE,
-        preferencesDefault = OutlineSideBarFactory.DEFAULT_OUTLINE
+        preferencesKey = Options.KEY_OUTLINE,
+        preferencesDefault = Options.DEFAULT_OUTLINE
 )
 @NbBundle.Messages("toggle-outline-view=Show Outline")
 public class MenuAction extends javax.swing.AbstractAction {

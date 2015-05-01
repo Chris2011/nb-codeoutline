@@ -28,9 +28,6 @@ import javax.swing.text.JTextComponent;
  */
 public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFactory {
 
-    public static final String KEY_OUTLINE = "enable.outline"; // NOI18N
-    public static final boolean DEFAULT_OUTLINE = true;
-
     @Override
     public JComponent createSideBar(JTextComponent jtc) {
 
