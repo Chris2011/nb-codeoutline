@@ -384,7 +384,7 @@ public class NaviView extends JPanel implements AdjustmentListener
                 bottom = top + (height * myHeight / prefViewHeight);
             }
             
-            Logger.getLogger("NaviView").info(String.format("Tried to create an image %s x %s top=%s, bottom=%s, myHeight=%s, ytop=%s,ybtm=%s, which may lead to an OOME.", width, height, top, bottom, myHeight, ytop,ybtm));
+            Logger.getLogger("NaviView").finest(String.format("Tried to create an image %s x %s top=%s, bottom=%s, myHeight=%s, ytop=%s,ybtm=%s, which may lead to an OOME.", width, height, top, bottom, myHeight, ytop,ybtm));
             // Create a buffered image to use
             BufferedImage bimage = g.getDeviceConfiguration().createCompatibleImage(width, height,Transparency.TRANSLUCENT);
             Map<Object,Object> hints = new HashMap<Object,Object>();
