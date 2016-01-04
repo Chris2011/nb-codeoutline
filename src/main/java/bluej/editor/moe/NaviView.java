@@ -52,14 +52,8 @@ import javax.swing.text.View;
 import javax.swing.text.Position.Bias;
 
 import bluej.Config;
+import de.markiewb.netbeans.plugins.outline.ColorAndFontProvider;
 import java.util.logging.Logger;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.StyleConstants;
-import org.netbeans.api.editor.mimelookup.MimeLookup;
-import org.netbeans.api.editor.settings.FontColorSettings;
-import org.netbeans.modules.editor.NbEditorUtilities;
-//import bluej.parser.nodes.ParsedNode;
-//import bluej.parser.nodes.NodeTree.NodeAndPosition;
 
 /**
  * "NaviView" component. Displays a miniature version of the document in the editor, and allows moving
@@ -114,14 +108,6 @@ public class NaviView extends JPanel implements AdjustmentListener
         documentChangedLength();
     }
 
-    private Color getBackoundColor() {
-        String mimeType = NbEditorUtilities.getMimeType(editorPane);
-        FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
-        AttributeSet fontColors = fcs.getFontColors("default");
-        Color bg = (Color) fontColors.getAttribute(StyleConstants.Background);
-        return bg;
-    }
-    
     /**
      * Get the document displayed by this NaviView.
      */
@@ -361,7 +347,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         int myHeight = imgBuffer.getHeight();
         View view = editorPane.getUI().getRootView(editorPane);
 
-        Color background = getBackoundColor();
+        Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
         
         Graphics2D g = imgBuffer.createGraphics();
 
@@ -514,7 +500,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         
         g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, null);
         
-        Color background = getBackoundColor();
+        Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
 
         int lx = insets.left;
         int rx = getWidth() - insets.right;
@@ -530,7 +516,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         g.fillRect(lx, docHeight + frw + insets.top, rx - lx, myHeight - docHeight + frw);
                    
         // Darken the area outside the viewport (above)
-        g.setColor(new Color(0, 0, 0, 0.15f));
+        g.setColor(ColorAndFontProvider.getHighlightColor(editorPane));
         if (topV > clipBounds.y) {
             g.fillRect(clipBounds.x, clipBounds.y, clipBounds.width, topV - clipBounds.y);
         }
@@ -543,7 +529,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         
         // Fill the area between the document end and bottom of the component
         if (docBottom < clipBounds.y + clipBounds.height) {
-            Color myBgColor = getBackoundColor();
+            Color myBgColor = getBackground();
             // This odd statement is necessary to avoid a weird Mac OS X bug
             // (OS X 10.6.2, Java 1.6.0_17) with repaint which occurs when
             // a tooltip is showing.

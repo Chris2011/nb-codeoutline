@@ -21,7 +21,7 @@
  */
 package bluej.editor.moe;
 
-import java.awt.Color;
+import de.markiewb.netbeans.plugins.outline.ColorAndFontProvider;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -30,7 +30,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 
 import javax.swing.event.DocumentEvent;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
@@ -40,15 +39,10 @@ import javax.swing.text.LayeredHighlighter;
 import javax.swing.text.PlainDocument;
 import javax.swing.text.Position.Bias;
 import javax.swing.text.Segment;
-import javax.swing.text.StyleConstants;
 import javax.swing.text.TabExpander;
 import javax.swing.text.Utilities;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
-import org.netbeans.api.editor.mimelookup.MimeLookup;
-import org.netbeans.api.editor.mimelookup.MimePath;
-import org.netbeans.api.editor.settings.FontColorSettings;
-import org.netbeans.modules.editor.NbEditorUtilities;
 
 /**
  * A better, less buggy version of PlainView, with additional support for a left margin appearing
@@ -232,7 +226,7 @@ public class MoePlainView extends View
         int ypos = abounds.y + topLine * mheight;
         int textBase = metrics.getAscent();
         
-        g.setColor(getTextColor());
+        g.setColor(ColorAndFontProvider.getTextColor(host));
         g.setFont(host.getFont());
         for (int i = topLine; i <= bottomLine; i++) {
             Element line = getElement().getElement(i);
@@ -250,19 +244,6 @@ public class MoePlainView extends View
         g.setClip(clip); // restore original clip bounds
     }
     
-    /**
-     * Get the colour for drawing text.
-     */
-    protected Color getTextColor()
-    {
-                        String mimeType = NbEditorUtilities.getMimeType((JTextComponent) getContainer());
-        FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
-        AttributeSet fontColors = fcs.getFontColors("default");
-        Color fg = (Color) fontColors.getAttribute(StyleConstants.Foreground);
-        return fg;
-//        JTextComponent host = (JTextComponent) getContainer();
-//        return (host.isEnabled()) ? host.getForeground() : host.getDisabledTextColor();
-    }
     
     /**
      * Draw a line of text.
