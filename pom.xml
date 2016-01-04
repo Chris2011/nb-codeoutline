@@ -127,10 +127,9 @@
 &lt;h2&gt;Updates&lt;/h2&gt;
 &lt;h3&gt;1.3.0:&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/8"&gt;Feature 8&lt;/a&gt;]: Dark theme support (colors are taken from the mimetype of the editor)&lt;/li&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/8"&gt;Feature 8&lt;/a&gt;]: Dark theme support (colors are taken from the mimetype of the editor, see also the new darkening-option)&lt;/li&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/13"&gt;Feature 13&lt;/a&gt;]: Enable antialiasing&lt;/li&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/20"&gt;Feature 20&lt;/a&gt;]: Font size is configureable&lt;/li&gt;
-
 &lt;/ul&gt;
 
 &lt;h3&gt;1.2.0:&lt;/h3&gt;

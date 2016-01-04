@@ -54,6 +54,12 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
                 controller.changed();
             }
         });
+        cbDarkening.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.changed();
+            }
+        });
     }
 
     /**
@@ -75,6 +81,9 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
         spFontSize = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        lbDarkening = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbDarkening = new javax.swing.JCheckBox();
 
         org.openide.awt.Mnemonics.setLocalizedText(lbWidth, org.openide.util.NbBundle.getMessage(CodeoutlineOptionsPanel.class, "CodeoutlineOptionsPanel.lbWidth.text")); // NOI18N
 
@@ -111,12 +120,25 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel4, org.openide.util.NbBundle.getMessage(CodeoutlineOptionsPanel.class, "CodeoutlineOptionsPanel.jLabel4.text")); // NOI18N
         jLabel4.setEnabled(false);
 
+        org.openide.awt.Mnemonics.setLocalizedText(lbDarkening, org.openide.util.NbBundle.getMessage(CodeoutlineOptionsPanel.class, "CodeoutlineOptionsPanel.lbDarkening.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(CodeoutlineOptionsPanel.class, "CodeoutlineOptionsPanel.jLabel5.text")); // NOI18N
+        jLabel5.setEnabled(false);
+
+        org.openide.awt.Mnemonics.setLocalizedText(cbDarkening, org.openide.util.NbBundle.getMessage(CodeoutlineOptionsPanel.class, "CodeoutlineOptionsPanel.cbDarkening.text")); // NOI18N
+        cbDarkening.setToolTipText(org.openide.util.NbBundle.getMessage(CodeoutlineOptionsPanel.class, "CodeoutlineOptionsPanel.cbDarkening.toolTipText")); // NOI18N
+        cbDarkening.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDarkeningActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 166, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
@@ -125,28 +147,27 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(lbWidth))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(lbFontSize))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spFontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lbWidth)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lbFontSize)
+                            .addComponent(lbDarkening))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbPosition, 0, 56, Short.MAX_VALUE)
+                    .addComponent(spFontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDarkening, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {spFontSize, spWidth});
@@ -169,7 +190,12 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
                     .addComponent(cbPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDarkening)
+                    .addComponent(jLabel5)
+                    .addComponent(cbDarkening))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btnVisitHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDonate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -192,6 +218,10 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDonateMouseClicked
 
+    private void cbDarkeningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDarkeningActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDarkeningActionPerformed
+
     void load() {
         spWidth.setValue(Options.getWidth());
 
@@ -207,12 +237,14 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
                 throw new AssertionError();
         }
         spFontSize.setValue(Options.getFontSize());
+        cbDarkening.setSelected(Options.isDarkening());
     }
 
     void store() {
         Options.setWidth((Integer) spWidth.getValue());
         Options.setFontSize((Integer) spFontSize.getValue());
         Options.setPosition(cbPosition.getSelectedItem().toString());
+        Options.setDarkening(cbDarkening.isSelected());
     }
 
     boolean valid() {
@@ -222,11 +254,14 @@ public final class CodeoutlineOptionsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDonate;
     private javax.swing.JLabel btnVisitHomePage;
+    private javax.swing.JCheckBox cbDarkening;
     private javax.swing.JComboBox cbPosition;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lbDarkening;
     private javax.swing.JLabel lbFontSize;
     private javax.swing.JLabel lbWidth;
     private javax.swing.JSpinner spFontSize;

@@ -28,15 +28,17 @@ import org.openide.util.NbPreferences;
  */
 public class Options {
 
-    public static final int DEFAULT_FONT_SIZE = 1;
+    public static final int DEFAULT_FONT_SIZE = 2;
 
     public static final boolean DEFAULT_OUTLINE = true;
     public static final String DEFAULT_POSITION = Position.RIGHT.name();
     public static final int DEFAULT_WIDTH = 90;
+    public static final boolean DEFAULT_DARKENING = false;
     public static final String KEY_FONT_SIZE = "outline.fontsize";
     public static final String KEY_OUTLINE = "enable.outline";
     public static final String KEY_POSITION = "outline.position";
     public static final String KEY_WIDTH = "outline.width";
+    public static final String KEY_DARKENING = "outline.darkening";
 
     public static int getFontSize() {
         return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getInt(KEY_FONT_SIZE, DEFAULT_FONT_SIZE);
@@ -51,6 +53,15 @@ public class Options {
         return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getInt(KEY_WIDTH, DEFAULT_WIDTH);
     }
 
+    public static float getDarkeningValue() {
+        boolean isDarkening = isDarkening();
+        return isDarkening ?/*for dark themes*/ 0.5f :/*for light themes*/ 0.125f;
+    }
+
+    public static boolean isDarkening() {
+        return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getBoolean(KEY_DARKENING, DEFAULT_DARKENING);
+    }
+
     public static boolean isVisible() {
         Preferences prefs = MimeLookup.getLookup(MimePath.EMPTY).lookup(Preferences.class);
         return prefs.getBoolean(Options.KEY_OUTLINE, Options.DEFAULT_OUTLINE);
@@ -62,6 +73,10 @@ public class Options {
 
     public static void setPosition(String toString) {
         NbPreferences.forModule(CodeoutlineOptionsPanel.class).put(KEY_POSITION, Position.valueOf(toString.toUpperCase()).name());
+    }
+
+    public static void setDarkening(boolean value) {
+        NbPreferences.forModule(CodeoutlineOptionsPanel.class).putBoolean(KEY_DARKENING, value);
     }
 
     public static void setWidth(Integer value) {

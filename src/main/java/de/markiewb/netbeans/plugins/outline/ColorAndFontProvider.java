@@ -55,7 +55,7 @@ public class ColorAndFontProvider {
     }
 
     public static Color getHighlightColor(JTextComponent jtc) {
-        return new Color(0, 0, 0, 0.5f);
+        return new Color(0, 0, 0, Options.getDarkeningValue());
     }
 
     public static Font getFont(JTextComponent jtc) {
