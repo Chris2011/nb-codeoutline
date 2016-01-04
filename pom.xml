@@ -125,6 +125,11 @@
 &lt;img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.1.png"/&gt;
  &lt;/p&gt; 
 &lt;h2&gt;Updates&lt;/h2&gt;
+&lt;h3&gt;1.3.0:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/8"&gt;Bugfix 8&lt;/a&gt;]: Dark theme support (colors are taken from the mimetype of the editor)&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h3&gt;1.2.0:&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/17"&gt;Feature 17&lt;/a&gt;]: Add option for disablement in the View menu&lt;/li&gt;
