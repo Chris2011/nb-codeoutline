@@ -21,7 +21,7 @@
  */
 package bluej.editor.moe;
 
-import java.awt.Color;
+import de.markiewb.netbeans.plugins.outline.ColorAndFontProvider;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -226,7 +226,7 @@ public class MoePlainView extends View
         int ypos = abounds.y + topLine * mheight;
         int textBase = metrics.getAscent();
         
-        g.setColor(getTextColor());
+        g.setColor(ColorAndFontProvider.getTextColor(host));
         g.setFont(host.getFont());
         for (int i = topLine; i <= bottomLine; i++) {
             Element line = getElement().getElement(i);
@@ -244,14 +244,6 @@ public class MoePlainView extends View
         g.setClip(clip); // restore original clip bounds
     }
     
-    /**
-     * Get the colour for drawing text.
-     */
-    protected Color getTextColor()
-    {
-        JTextComponent host = (JTextComponent) getContainer();
-        return (host.isEnabled()) ? host.getForeground() : host.getDisabledTextColor();
-    }
     
     /**
      * Draw a line of text.

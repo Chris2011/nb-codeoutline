@@ -52,9 +52,8 @@ import javax.swing.text.View;
 import javax.swing.text.Position.Bias;
 
 import bluej.Config;
+import de.markiewb.netbeans.plugins.outline.ColorAndFontProvider;
 import java.util.logging.Logger;
-//import bluej.parser.nodes.ParsedNode;
-//import bluej.parser.nodes.NodeTree.NodeAndPosition;
 
 /**
  * "NaviView" component. Displays a miniature version of the document in the editor, and allows moving
@@ -65,7 +64,7 @@ import java.util.logging.Logger;
 public class NaviView extends JPanel implements AdjustmentListener
 {
     private static final Image frame = Config.getFixedImageAsIcon("naviview-frame.png").getImage();
-    private static final int frw = 5;  // frame width
+    private static final int frw = 0;  // frame width
     
     private Document document;
     private JEditorPane editorPane;
@@ -109,11 +108,6 @@ public class NaviView extends JPanel implements AdjustmentListener
         documentChangedLength();
     }
 
-    private Color getBackoundColor() {
-//        return MoeSyntaxDocument.getBackgroundColor();
-        return Color.WHITE;
-    }
-    
     /**
      * Get the document displayed by this NaviView.
      */
@@ -353,7 +347,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         int myHeight = imgBuffer.getHeight();
         View view = editorPane.getUI().getRootView(editorPane);
 
-        Color background = getBackoundColor();
+        Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
         
         Graphics2D g = imgBuffer.createGraphics();
 
@@ -506,8 +500,8 @@ public class NaviView extends JPanel implements AdjustmentListener
         
         g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, null);
         
-        Color background = getBackoundColor();
-        
+        Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
+
         int lx = insets.left;
         int rx = getWidth() - insets.right;
         int ty = insets.top;
@@ -522,7 +516,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         g.fillRect(lx, docHeight + frw + insets.top, rx - lx, myHeight - docHeight + frw);
                    
         // Darken the area outside the viewport (above)
-        g.setColor(new Color(0, 0, 0, 0.15f));
+        g.setColor(ColorAndFontProvider.getHighlightColor(editorPane));
         if (topV > clipBounds.y) {
             g.fillRect(clipBounds.x, clipBounds.y, clipBounds.width, topV - clipBounds.y);
         }
