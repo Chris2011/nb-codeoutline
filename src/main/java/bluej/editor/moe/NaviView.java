@@ -381,9 +381,7 @@ public class NaviView extends JPanel implements AdjustmentListener
             Logger.getLogger("NaviView").finest(String.format("Tried to create an image %s x %s top=%s, bottom=%s, myHeight=%s, ytop=%s,ybtm=%s, which may lead to an OOME.", width, height, top, bottom, myHeight, ytop,ybtm));
             // Create a buffered image to use
             BufferedImage bimage = g.getDeviceConfiguration().createCompatibleImage(width, height,Transparency.TRANSLUCENT);
-            Map<Object,Object> hints = new HashMap<Object,Object>();
-            hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g.addRenderingHints(hints);
+            addRenderingHintsForAntialiasing(g);
 
             g.setColor(background);
             g.fillRect(0, top, imgBuffer.getWidth(), bottom - top);
@@ -392,6 +390,7 @@ public class NaviView extends JPanel implements AdjustmentListener
             Rectangle shape = new Rectangle(frw, frw, width, prefViewHeight);
             bg.setClip(0, 0, width, height);
             bg.translate(-frw, -ytop - frw);
+            addRenderingHintsForAntialiasing(bg);            
             view.paint(bg, shape);
             
             g.drawImage(bimage, 0, top,
@@ -418,6 +417,7 @@ public class NaviView extends JPanel implements AdjustmentListener
             // Draw the code on the buffer image:
             g.translate(-frw, -frw);
             Rectangle bufferBounds = new Rectangle (frw,frw,w,h);
+            addRenderingHintsForAntialiasing(g);            
             view.paint(g, bufferBounds);
         }
         
@@ -622,5 +622,13 @@ public class NaviView extends JPanel implements AdjustmentListener
         }
         r.translate(-frw, -frw);
         return r;
+    }
+
+    private void addRenderingHintsForAntialiasing(Graphics2D g) {
+        Map<Object,Object> hints = new HashMap<Object,Object>();
+        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        hints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.addRenderingHints(hints);
     }
 }
