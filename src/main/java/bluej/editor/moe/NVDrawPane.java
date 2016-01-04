@@ -21,6 +21,7 @@
  */
 package bluej.editor.moe;
 
+import de.markiewb.netbeans.plugins.outline.ColorAndFontProvider;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -42,6 +43,7 @@ import javax.swing.text.View;
  * </ul>
  * 
  * @author Davin McCall
+ * @author markiewb (some changes regarding fontsize integration for NB)
  */
 public class NVDrawPane extends JEditorPane
 {
@@ -53,7 +55,7 @@ public class NVDrawPane extends JEditorPane
     public NVDrawPane(NaviView nview)
     {
         this.nview = nview;
-        Font smallFont = new Font("Monospaced", Font.BOLD, 1);
+        Font smallFont = ColorAndFontProvider.getFont(this);
         setFont(smallFont);
         setEditorKit(new NaviviewEditorKit(nview));
     }

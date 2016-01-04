@@ -28,12 +28,19 @@ import org.openide.util.NbPreferences;
  */
 public class Options {
 
+    public static final int DEFAULT_FONT_SIZE = 1;
+
     public static final boolean DEFAULT_OUTLINE = true;
     public static final String DEFAULT_POSITION = Position.RIGHT.name();
+    public static final int DEFAULT_WIDTH = 90;
+    public static final String KEY_FONT_SIZE = "outline.fontsize";
     public static final String KEY_OUTLINE = "enable.outline";
     public static final String KEY_POSITION = "outline.position";
     public static final String KEY_WIDTH = "outline.width";
-    static int WIDTH_DEFAULT = 90;
+
+    public static int getFontSize() {
+        return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getInt(KEY_FONT_SIZE, DEFAULT_FONT_SIZE);
+    }
 
     public static Position getPosition() {
         String get = NbPreferences.forModule(CodeoutlineOptionsPanel.class).get(KEY_POSITION, DEFAULT_POSITION);
@@ -41,20 +48,23 @@ public class Options {
     }
 
     public static int getWidth() {
-        return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getInt(KEY_WIDTH, WIDTH_DEFAULT);
+        return NbPreferences.forModule(CodeoutlineOptionsPanel.class).getInt(KEY_WIDTH, DEFAULT_WIDTH);
     }
-
 
     public static boolean isVisible() {
         Preferences prefs = MimeLookup.getLookup(MimePath.EMPTY).lookup(Preferences.class);
         return prefs.getBoolean(Options.KEY_OUTLINE, Options.DEFAULT_OUTLINE);
     }
 
+    public static void setFontSize(Integer value) {
+        NbPreferences.forModule(CodeoutlineOptionsPanel.class).putInt(KEY_FONT_SIZE, value);
+    }
+
     public static void setPosition(String toString) {
         NbPreferences.forModule(CodeoutlineOptionsPanel.class).put(KEY_POSITION, Position.valueOf(toString.toUpperCase()).name());
     }
 
-    static void setWidth(Integer value) {
+    public static void setWidth(Integer value) {
         NbPreferences.forModule(CodeoutlineOptionsPanel.class).putInt(KEY_WIDTH, value);
     }
 

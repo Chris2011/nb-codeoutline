@@ -17,6 +17,7 @@
  */
 package de.markiewb.netbeans.plugins.outline;
 
+import de.markiewb.netbeans.plugins.outline.options.Options;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.text.AttributeSet;
@@ -63,7 +64,8 @@ public class ColorAndFontProvider {
         String mimeType = NbEditorUtilities.getMimeType(jtc);
         FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
         String fontName = (String) fcs.getFontColors("default").getAttribute(StyleConstants.FontFamily);
-        Font smallFont = new Font(fontName != null ? fontName : defaultFontName, Font.PLAIN, 1);
+        
+        Font smallFont = new Font(fontName != null ? fontName : defaultFontName, Font.PLAIN, Options.getFontSize());
         return smallFont;
     }
 }
