@@ -626,7 +626,7 @@ public class NaviView extends JPanel implements AdjustmentListener
 
     private void addRenderingHintsForAntialiasing(Graphics2D g) {
         Map<Object,Object> hints = new HashMap<Object,Object>();
-        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         hints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.addRenderingHints(hints);
