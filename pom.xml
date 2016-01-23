@@ -129,6 +129,7 @@
 &lt;ul&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/26"&gt;Feature 26&lt;/a&gt;]: Use bicubic scaling for better quality&lt;/li&gt;
 &lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/23"&gt;Feature 23&lt;/a&gt;]: Add mnemonic to menu entry&lt;/li&gt;
+&lt;li&gt;[&lt;a href="https://github.com/markiewb/nb-codeoutline/issues/27"&gt;Bugfix 27&lt;/a&gt;]: Fix layout in options dialog&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;1.3.0:&lt;/h3&gt;
 &lt;ul&gt;
