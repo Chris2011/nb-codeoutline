@@ -4,6 +4,12 @@ This plugins adds a code overview/outline for the current editor. Implements  <a
 <img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.3.png"/>
  </p> 
 <h2>Updates</h2>
+<h3>1.3.1:</h3>
+<ul>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/26">Feature 26</a>]: Use bicubic scaling for better quality</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/23">Feature 23</a>]: Add mnemonic to menu entry</li>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/27">Bugfix 27</a>]: Fix layout in options dialog</li>
+</ul>
 <h3>1.3.0:</h3>
 <ul>
 <li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/8">Feature 8</a>]: Dark theme support (colors are taken from the mimetype of the editor, see also the new darkening-option)</li>
