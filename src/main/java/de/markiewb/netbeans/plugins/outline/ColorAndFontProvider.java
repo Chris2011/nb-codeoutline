@@ -24,8 +24,9 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.StyleConstants;
 import org.netbeans.api.editor.mimelookup.MimeLookup;
+import org.netbeans.api.editor.settings.FontColorNames;
 import org.netbeans.api.editor.settings.FontColorSettings;
-import org.netbeans.modules.editor.NbEditorUtilities;
+import org.netbeans.lib.editor.util.swing.DocumentUtilities;
 
 /**
  *
@@ -37,21 +38,11 @@ public class ColorAndFontProvider {
      * Get the colour for drawing text.
      */
     public static Color getTextColor(JTextComponent jtc) {
-        String mimeType = NbEditorUtilities.getMimeType(jtc);
-        FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
-        AttributeSet fontColors = fcs.getFontColors("default");
-        Color fg = (Color) fontColors.getAttribute(StyleConstants.Foreground);
-        return fg;
-//        JTextComponent host = (JTextComponent) getContainer();
-//        return (host.isEnabled()) ? host.getForeground() : host.getDisabledTextColor();
+        return StyleConstants.getForeground(getFontAttributes(jtc));
     }
 
     public static Color getBackgroundColor(JTextComponent jtc) {
-        String mimeType = NbEditorUtilities.getMimeType(jtc);
-        FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
-        AttributeSet fontColors = fcs.getFontColors("default");
-        Color bg = (Color) fontColors.getAttribute(StyleConstants.Background);
-        return bg;
+        return StyleConstants.getBackground(getFontAttributes(jtc));
     }
 
     public static Color getHighlightColor(JTextComponent jtc) {
@@ -61,11 +52,16 @@ public class ColorAndFontProvider {
     public static Font getFont(JTextComponent jtc) {
         String defaultFontName = "Monospaced";
 
-        String mimeType = NbEditorUtilities.getMimeType(jtc);
-        FontColorSettings fcs = MimeLookup.getLookup(mimeType).lookup(FontColorSettings.class);
-        String fontName = (String) fcs.getFontColors("default").getAttribute(StyleConstants.FontFamily);
-        
+        String fontName = StyleConstants.getFontFamily(getFontAttributes(jtc));
+
         Font smallFont = new Font(fontName != null ? fontName : defaultFontName, Font.PLAIN, Options.getFontSize());
         return smallFont;
+    }
+
+    private static AttributeSet getFontAttributes(JTextComponent textComponent) {
+        String mimeType = DocumentUtilities.getMimeType(textComponent);
+        return MimeLookup.getLookup(mimeType)
+                .lookup(FontColorSettings.class)
+                .getFontColors(FontColorNames.DEFAULT_COLORING);
     }
 }
