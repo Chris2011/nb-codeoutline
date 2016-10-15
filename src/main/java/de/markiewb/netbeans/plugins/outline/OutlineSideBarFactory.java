@@ -17,13 +17,9 @@
  */
 package de.markiewb.netbeans.plugins.outline;
 
-import bluej.editor.moe.NaviView;
 import java.awt.Container;
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -32,20 +28,25 @@ import javax.swing.text.JTextComponent;
  */
 public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFactory {
 
-    private final static int NAVIVIEW_WIDTH = 90;       // width of the "naviview" (min-source) box
-    private boolean enabled = true;
-
     @Override
     public JComponent createSideBar(JTextComponent jtc) {
 
-        if (!enabled) {
-            return null;
-        }
-
+        /**
+         * <pre>
+         * jtc.getParent()                              #8227	NbEditorUI$LayeredEditorPane
+         * jtc.getParent().getParent()                  #8233	JViewport
+         * jtc.getParent().getParent().getParent()	#8234	JScrollPane
+         * </pre>
+         */
         Container parent = jtc.getParent();
         if (null == parent) {
             return null;
         }
+        parent = parent.getParent();
+        if (null == parent) {
+            return null;
+        }
+        // a new container JViewport has been introduced in 8.2
         parent = parent.getParent();
         if (null == parent) {
             return null;
@@ -55,13 +56,6 @@ public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFac
             JScrollPane scrollPane = (JScrollPane) parent;
 
             return new NaviViewExt(jtc.getDocument(), scrollPane.getVerticalScrollBar());
-//            scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-//
-//            NaviView naviView = new NaviView(jtc.getDocument(), scrollPane.getVerticalScrollBar());
-//            naviView.setPreferredSize(new Dimension(NAVIVIEW_WIDTH, 0));
-//            naviView.setMaximumSize(new Dimension(NAVIVIEW_WIDTH, Integer.MAX_VALUE));
-////            naviView.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-//            return naviView;
         }
         return null;
 

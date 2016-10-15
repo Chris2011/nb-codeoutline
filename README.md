@@ -4,6 +4,10 @@ This plugins adds a code overview/outline for the current editor. Implements  <a
 <img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.3.png"/>
  </p> 
 <h2>Updates</h2>
+<h3>1.3.2:</h3>
+<ul>
+<li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/31">Bugfix 31</a>]: Outline is visible again for 8.2</li>
+</ul>
 <h3>1.3.1:</h3>
 <ul>
 <li>[<a href="https://github.com/markiewb/nb-codeoutline/issues/26">Feature 26</a>]: Use bicubic scaling for better quality</li>
