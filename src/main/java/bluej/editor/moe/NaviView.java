@@ -53,7 +53,8 @@ import javax.swing.text.Position.Bias;
 
 import bluej.Config;
 import de.markiewb.netbeans.plugins.outline.ColorAndFontProvider;
-import java.util.logging.Logger;
+import java.awt.Component;
+import javax.swing.text.JTextComponent;
 
 /**
  * "NaviView" component. Displays a miniature version of the document in the editor, and allows moving
@@ -81,9 +82,11 @@ public class NaviView extends JPanel implements AdjustmentListener
     
     private BufferedImage imgBuffer;
     private int prefViewHeight;
-    
-    public NaviView(Document document, JScrollBar scrollBar)
+    private JTextComponent jtc;
+
+    public NaviView(JTextComponent jtc, Document document, JScrollBar scrollBar)
     {
+        this.jtc = jtc;
         this.scrollBar = scrollBar;
         editorPane = new NVDrawPane(this);
         
@@ -298,7 +301,7 @@ public class NaviView extends JPanel implements AdjustmentListener
             super.processMouseEvent(e);
         }
     }
-    
+
     @Override
     protected void processMouseMotionEvent(MouseEvent e)
     {
@@ -335,95 +338,17 @@ public class NaviView extends JPanel implements AdjustmentListener
         scrollBar.setValue(pos);
     }
         
-    /**
-     * Paint to the backing image buffer, and then issue an appropriate
-     * repaint() so that the backing buffer is displayed.
-     * 
-     * @param top  The top line (in view co-ordinates) to paint
-     * @param bottom  The bottom line (in view co-ordinates) to paint
-     */
-    private void paintImgBuffer(int top, int bottom)
-    {
-        int myHeight = imgBuffer.getHeight();
-        View view = editorPane.getUI().getRootView(editorPane);
-
-        Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
-        
-        Graphics2D g = imgBuffer.createGraphics();
-
-        if (prefViewHeight > myHeight) {
-            // scale!
-            //potential bugfix: https://github.com/markiewb/nb-codeoutline/issues/11
-            int width = Math.min(imgBuffer.getWidth() * prefViewHeight / myHeight, 400);
-            int ytop = top * prefViewHeight / myHeight;
-            int ybtm = (bottom * prefViewHeight + myHeight - 1) / myHeight;
-            int height = ybtm - ytop;
-            
-            if (height > 400) {
-                height = 400;
-                ybtm = ytop + 400;
-                int newbottom = top + (height * myHeight / prefViewHeight);
-                if (newbottom <= top) {
-                    newbottom = top + 1;
-                    ybtm = (newbottom* prefViewHeight + myHeight - 1) / myHeight;
-                    height = ybtm - ytop; 
-                }
-                enqueueRepaint(newbottom, bottom);
-                bottom = newbottom;
-            }
-            
-            if (height < 1) {
-                height = 1;
-                ybtm = ytop + 1;
-                bottom = top + (height * myHeight / prefViewHeight);
-            }
-            
-            Logger.getLogger("NaviView").finest(String.format("Tried to create an image %s x %s top=%s, bottom=%s, myHeight=%s, ytop=%s,ybtm=%s, which may lead to an OOME.", width, height, top, bottom, myHeight, ytop,ybtm));
-            // Create a buffered image to use
-            BufferedImage bimage = g.getDeviceConfiguration().createCompatibleImage(width, height,Transparency.TRANSLUCENT);
-            addRenderingHintsForAntialiasing(g);
-
-            g.setColor(background);
-            g.fillRect(0, top, imgBuffer.getWidth(), bottom - top);
-            
-            Graphics2D bg = bimage.createGraphics();
-            Rectangle shape = new Rectangle(frw, frw, width, prefViewHeight);
-            bg.setClip(0, 0, width, height);
-            bg.translate(-frw, -ytop - frw);
-            addRenderingHintsForAntialiasing(bg);            
-            view.paint(bg, shape);
-            
-            g.drawImage(bimage, 0, top,
-                    imgBuffer.getWidth(),
-                    bottom, 0, 0, width, height, null);
-            
-            bg.dispose();
-        }
-        else {
-            // Scaling not necessary
-            int w = imgBuffer.getWidth();
-            int h = myHeight;
-            
-            Rectangle rb = new Rectangle();
-            rb.x = 0;
-            rb.y = Math.max(0, top);
-            rb.width = imgBuffer.getWidth();
-            rb.height = bottom - top;
-            
-            g.setClip(rb);
-            g.setColor(background);
-            g.fillRect(rb.x, rb.y, rb.width, rb.height);
-            
-            // Draw the code on the buffer image:
-            g.translate(-frw, -frw);
-            Rectangle bufferBounds = new Rectangle (frw,frw,w,h);
-            addRenderingHintsForAntialiasing(g);            
-            view.paint(g, bufferBounds);
-        }
-        
-        g.dispose();
+    private BufferedImage toBufferedImage(Component panel) {
+            Dimension size = panel.getSize();
+            BufferedImage image = new BufferedImage(
+                            size.width, size.height,
+                            BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2 = image.createGraphics();
+            panel.paint(g2);
+            g2.dispose();
+            return image;
     }
-    
+
     private List<Integer> tops = new ArrayList<Integer>();
     private List<Integer> bottoms = new ArrayList<Integer>();
     
@@ -491,15 +416,9 @@ public class NaviView extends JPanel implements AdjustmentListener
         int bottomV = insets.top + frw + ((scrollBar.getValue() + scrollBar.getVisibleAmount()) * docHeight + (scrollBar.getMaximum() - 1)) / scrollBar.getMaximum();
 
         createImgBuffer(g, prefViewHeight > myHeight);
-        
-        if (! tops.isEmpty()) {
-            int rtop = tops.remove(0);
-            int rbottom = bottoms.remove(0);
-            paintImgBuffer(rtop, rbottom);
-        }
-        
-        g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, null);
-        
+
+        g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, getWidth(), getHeight(), null);
+
         Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
 
         int lx = insets.left;
@@ -567,47 +486,12 @@ public class NaviView extends JPanel implements AdjustmentListener
             repaint(0, rtop, getWidth(), rbottom - rtop);
         }
     }
-    
+
     public void createImgBuffer(Graphics g, boolean scaling)
     {
-        Insets insets = getInsets();
-        int w = Math.max(getWidth() - insets.left - insets.right - 2*frw, 1);
-        int h = Math.max(getHeight() - insets.top - insets.bottom - 2*frw, 1);
-                
-        if (imgBuffer != null) {
-            if (imgBuffer.getHeight() == h && imgBuffer.getWidth() == w) {
-                return;
-            }
+        if (imgBuffer == null) {
+                imgBuffer = toBufferedImage(jtc);
         }
-//        Logger.getLogger("NaviView").severe(String.format("image buffer %sx%s %sx%s", w,h, getWidth(), getHeight()));
-
-        BufferedImage oldImgBuffer = imgBuffer;
-        
-        if (g instanceof Graphics2D) {
-            Graphics2D g2d = (Graphics2D) g;
-            imgBuffer = g2d.getDeviceConfiguration().createCompatibleImage(w, h);
-        }
-        else {
-            imgBuffer = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
-        }
-        
-        // Create the new image buffer and paint the old one onto it if possible.
-        Graphics2D g2d = imgBuffer.createGraphics();
-        if (oldImgBuffer == null) {
-            g2d.setColor(getBackground());
-            g2d.fillRect(0, 0, imgBuffer.getWidth(), imgBuffer.getHeight());
-            paintImgBuffer(0, imgBuffer.getHeight());
-        }
-        else if (! scaling) {
-            g2d.drawImage(oldImgBuffer, 0, 0, null);
-            paintImgBuffer(oldImgBuffer.getHeight(), imgBuffer.getHeight());
-        }
-        else {
-            g2d.drawImage(oldImgBuffer, 0, 0, imgBuffer.getWidth(), imgBuffer.getHeight(),
-                    0, 0, oldImgBuffer.getWidth(), oldImgBuffer.getHeight(), null);
-            paintImgBuffer(0, imgBuffer.getHeight());
-        }
-        g2d.dispose();
     }
     
     public Graphics2D getScalingImgBufferGraphics(Graphics g)
@@ -624,11 +508,4 @@ public class NaviView extends JPanel implements AdjustmentListener
         return r;
     }
 
-    private void addRenderingHintsForAntialiasing(Graphics2D g) {
-        Map<Object,Object> hints = new HashMap<Object,Object>();
-        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        hints.put(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.addRenderingHints(hints);
-    }
 }
