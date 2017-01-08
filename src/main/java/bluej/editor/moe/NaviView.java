@@ -566,6 +566,7 @@ public class NaviView extends JPanel implements AdjustmentListener
             int rbottom = bottoms.get(0);
             repaint(0, rtop, getWidth(), rbottom - rtop);
         }
+		
     }
     
     public void createImgBuffer(Graphics g, boolean scaling)
@@ -573,7 +574,7 @@ public class NaviView extends JPanel implements AdjustmentListener
         Insets insets = getInsets();
         int w = Math.max(getWidth() - insets.left - insets.right - 2*frw, 1);
         int h = Math.max(getHeight() - insets.top - insets.bottom - 2*frw, 1);
-                
+
         if (imgBuffer != null) {
             if (imgBuffer.getHeight() == h && imgBuffer.getWidth() == w) {
                 return;
