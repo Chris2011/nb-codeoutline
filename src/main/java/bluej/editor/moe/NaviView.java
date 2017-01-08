@@ -174,7 +174,7 @@ public class NaviView extends JPanel implements AdjustmentListener {
 		if (imgBuffer != null && isVisible() && width > 0) {
 			Insets insets = getInsets();
 			int myHeight = Math.max(getHeight() - insets.top - insets.bottom - frw * 2, 1);
-//			createImgBuffer(imgBuffer.getGraphics(), prefViewHeight > myHeight);
+			createImgBuffer(imgBuffer.getGraphics(), prefViewHeight > myHeight);
 		}
 		enqueueRepaint(0, height);
 		repaint();
@@ -542,21 +542,14 @@ public class NaviView extends JPanel implements AdjustmentListener {
 		int topV = insets.top + frw + scrollBar.getValue() * docHeight / scrollBar.getMaximum();
 		int bottomV = insets.top + frw + ((scrollBar.getValue() + scrollBar.getVisibleAmount()) * docHeight + (scrollBar.getMaximum() - 1)) / scrollBar.getMaximum();
 
-		//createImgBuffer(g, prefViewHeight > myHeight);
+		createImgBuffer(g, prefViewHeight > myHeight);
 //		if (!tops.isEmpty()) {
 //			int rtop = tops.remove(0);
 //			int rbottom = bottoms.remove(0);
 //			paintImgBuffer(rtop, rbottom);
 //		}
 		//g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, null);
-		if (start) {
-			imgBuffer = toBufferedImage(jtc);
-			makeImage(imgBuffer, "file_a.png");
-//			imgBuffer = resize(imgBuffer, 50, 600);
-			makeImage(imgBuffer, "file_b.png");
-			start = false;
-			io.getOut().println(imgBuffer.getWidth());
-		}
+
 		g.drawImage(imgBuffer, insets.left + frw, insets.top + frw, getWidth(), getHeight(), null);
 
 		Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
@@ -628,7 +621,14 @@ public class NaviView extends JPanel implements AdjustmentListener {
 
 	}
 
-//	public void createImgBuffer(Graphics g, boolean scaling) {
+	public void createImgBuffer(Graphics g, boolean scaling) {
+		if (imgBuffer == null) {
+			imgBuffer = toBufferedImage(jtc);
+		}
+//			makeImage(imgBuffer, "file_a.png");
+//			imgBuffer = resize(imgBuffer, 50, 600);
+//			makeImage(imgBuffer, "file_b.png");
+
 //		Insets insets = getInsets();
 //		int w = Math.max(getWidth() - insets.left - insets.right - 2 * frw, 1);
 //		int h = Math.max(getHeight() - insets.top - insets.bottom - 2 * frw, 1);
@@ -664,20 +664,20 @@ public class NaviView extends JPanel implements AdjustmentListener {
 //			paintImgBuffer(0, imgBuffer.getHeight());
 //		}
 //		g2d.dispose();
-//	}
+	}
 
-//	public Graphics2D getScalingImgBufferGraphics(Graphics g) {
-//		Insets insets = getInsets();
-//		int myHeight = Math.max(getHeight() - insets.top - insets.bottom - frw * 2, 1);
-//		createImgBuffer(g, prefViewHeight > myHeight);
-//		Graphics2D r = imgBuffer.createGraphics();
-//		if (prefViewHeight > myHeight) {
-//			double scaleFactor = (double) myHeight / prefViewHeight;
-//			r.scale(scaleFactor, scaleFactor);
-//		}
-//		r.translate(-frw, -frw);
-//		return r;
-//	}
+	public Graphics2D getScalingImgBufferGraphics(Graphics g) {
+		Insets insets = getInsets();
+		int myHeight = Math.max(getHeight() - insets.top - insets.bottom - frw * 2, 1);
+		createImgBuffer(g, prefViewHeight > myHeight);
+		Graphics2D r = imgBuffer.createGraphics();
+		if (prefViewHeight > myHeight) {
+			double scaleFactor = (double) myHeight / prefViewHeight;
+			r.scale(scaleFactor, scaleFactor);
+		}
+		r.translate(-frw, -frw);
+		return r;
+	}
 
 	private void addRenderingHintsForAntialiasing(Graphics2D g) {
 		Map<Object, Object> hints = new HashMap<Object, Object>();
