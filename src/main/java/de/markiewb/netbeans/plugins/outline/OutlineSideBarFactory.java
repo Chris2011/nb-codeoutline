@@ -17,7 +17,13 @@
  */
 package de.markiewb.netbeans.plugins.outline;
 
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.text.JTextComponent;
@@ -30,7 +36,6 @@ public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFac
 
 	@Override
 	public JComponent createSideBar(JTextComponent jtc) {
-
 		/**
 		 * <pre>
 		 * jtc.getParent()                              #8227	NbEditorUI$LayeredEditorPane
@@ -52,11 +57,10 @@ public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFac
 			return null;
 		}
 		if (parent instanceof JScrollPane && null != jtc.getDocument()) {
-
 			JScrollPane scrollPane = (JScrollPane) parent;
-
-			return new NaviViewExt(jtc.getDocument(), scrollPane.getVerticalScrollBar());
+			return new NaviViewExt(jtc, jtc.getDocument(), scrollPane.getVerticalScrollBar());
 		}
+
 		return null;
 	}
 

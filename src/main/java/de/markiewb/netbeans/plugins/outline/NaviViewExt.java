@@ -29,6 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
 import org.netbeans.api.editor.mimelookup.MimeLookup;
 import org.netbeans.api.editor.mimelookup.MimePath;
 import org.openide.filesystems.FileObject;
@@ -41,9 +42,10 @@ import org.openide.util.WeakListeners;
  * @author markiewb
  */
 public class NaviViewExt extends NaviView implements PreferenceChangeListener {
-
-    public NaviViewExt(Document document, JScrollBar scrollBar) {
-        super(document, scrollBar);
+JTextComponent jtc;
+    public NaviViewExt(JTextComponent jtc, Document document, JScrollBar scrollBar) {
+        super(jtc, document, scrollBar);
+        this.jtc=jtc;
         this.setBorder(BorderFactory.createEmptyBorder());
 
         {
