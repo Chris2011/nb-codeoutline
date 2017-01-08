@@ -17,13 +17,7 @@
  */
 package de.markiewb.netbeans.plugins.outline;
 
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.text.JTextComponent;

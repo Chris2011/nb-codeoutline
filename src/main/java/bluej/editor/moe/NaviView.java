@@ -332,103 +332,101 @@ public class NaviView extends JPanel implements AdjustmentListener {
 	 * @param bottom The bottom line (in view co-ordinates) to paint
 	 */
 	private void paintImgBuffer(int top, int bottom) {
-		int myHeight = imgBuffer.getHeight();
-		View view = editorPane.getUI().getRootView(editorPane);
-
-		Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
-
-		Graphics2D g = imgBuffer.createGraphics();
-
-		if (prefViewHeight > myHeight) {
-			// scale!
-			//potential bugfix: https://github.com/markiewb/nb-codeoutline/issues/11
-			int width = Math.min(imgBuffer.getWidth() * prefViewHeight / myHeight, 400);
-			int ytop = top * prefViewHeight / myHeight;
-			int ybtm = (bottom * prefViewHeight + myHeight - 1) / myHeight;
-			int height = ybtm - ytop;
-
-			if (height > 400) {
-				height = 400;
-				ybtm = ytop + 400;
-				int newbottom = top + (height * myHeight / prefViewHeight);
-				if (newbottom <= top) {
-					newbottom = top + 1;
-					ybtm = (newbottom * prefViewHeight + myHeight - 1) / myHeight;
-					height = ybtm - ytop;
-				}
-				enqueueRepaint(newbottom, bottom);
-				bottom = newbottom;
-			}
-
-			if (height < 1) {
-				height = 1;
-				ybtm = ytop + 1;
-				bottom = top + (height * myHeight / prefViewHeight);
-			}
-
-//			io.getOut().println("width=" + width + ", height=" + height);
-//			io.getOut().println("editorPane.width=" + editorPane.getWidth() + ", height=" + editorPane.getHeight());
-			// Create a buffered image to use
-//			BufferedImage bimage = g.getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
-//			//BufferedImage bimage = new BufferedImage(3000, 3000, BufferedImage.TYPE_INT_ARGB);
+//		int myHeight = imgBuffer.getHeight();
+//		View view = editorPane.getUI().getRootView(editorPane);
+//
+//		Color background = ColorAndFontProvider.getBackgroundColor(editorPane);
+//
+//		Graphics2D g = imgBuffer.createGraphics();
+//
+//		if (prefViewHeight > myHeight) {
+//			// scale!
+//			//potential bugfix: https://github.com/markiewb/nb-codeoutline/issues/11
+//			int width = Math.min(imgBuffer.getWidth() * prefViewHeight / myHeight, 400);
+//			int ytop = top * prefViewHeight / myHeight;
+//			int ybtm = (bottom * prefViewHeight + myHeight - 1) / myHeight;
+//			int height = ybtm - ytop;
+//
+//			if (height > 400) {
+//				height = 400;
+//				ybtm = ytop + 400;
+//				int newbottom = top + (height * myHeight / prefViewHeight);
+//				if (newbottom <= top) {
+//					newbottom = top + 1;
+//					ybtm = (newbottom * prefViewHeight + myHeight - 1) / myHeight;
+//					height = ybtm - ytop;
+//				}
+//				enqueueRepaint(newbottom, bottom);
+//				bottom = newbottom;
+//			}
+//
+//			if (height < 1) {
+//				height = 1;
+//				ybtm = ytop + 1;
+//				bottom = top + (height * myHeight / prefViewHeight);
+//			}
+//
+////			io.getOut().println("width=" + width + ", height=" + height);
+////			io.getOut().println("editorPane.width=" + editorPane.getWidth() + ", height=" + editorPane.getHeight());
+//			// Create a buffered image to use
+////			BufferedImage bimage = g.getDeviceConfiguration().createCompatibleImage(width, height, Transparency.TRANSLUCENT);
+////			//BufferedImage bimage = new BufferedImage(3000, 3000, BufferedImage.TYPE_INT_ARGB);
+//////			addRenderingHintsForAntialiasing(g);
+//////
+////			g.setColor(background);
+////			g.fillRect(0, top, imgBuffer.getWidth(), bottom - top);
+//////
+////			Graphics2D bg = bimage.createGraphics();
+////			Rectangle shape = new Rectangle(frw, frw, width, prefViewHeight);
+////			bg.setClip(0, 0, width, height);
+////			bg.translate(-frw, -ytop - frw);
+//			//addRenderingHintsForAntialiasing(bg);
+////			view.paint(bg, shape);
+////			//editorPane.getUI().paint(bimage.getGraphics(), editorPane.getRootPane());
+////
+////			File outputfile = new File("/Users/peter/Desktop/fuck_imgBuffer.png");
+////			try {
+////				ImageIO.write(bimage, "png", outputfile);
+////			} catch (IOException ex) {
+////				Exceptions.printStackTrace(ex);
+////				io.getOut().println("h2 " + ex.getMessage());
+////			}
+////			if (start) {
+////				makeImage(bimage, "file1.png");
+////			}
+////			bimage = resize(bimage, width, height);
+////			if (start) {
+////				io.getOut().print("w=" + width + ", h=" + height);
+////				makeImage(bimage, "file2.png");
+////			}
+//
+////			g.drawImage(bimage, 0, top,
+////					imgBuffer.getWidth(),
+////					bottom, 0, 0, width, height, null);
+//
+////			bg.dispose();
+//		} else {
+//			// Scaling not necessary
+////			int w = imgBuffer.getWidth();
+////			int h = myHeight;
+////
+////			Rectangle rb = new Rectangle();
+////			rb.x = 0;
+////			rb.y = Math.max(0, top);
+////			rb.width = imgBuffer.getWidth();
+////			rb.height = bottom - top;
+////
+////			g.setClip(rb);
+////			g.setColor(background);
+////			g.fillRect(rb.x, rb.y, rb.width, rb.height);
+////
+////			// Draw the code on the buffer image:
+////			g.translate(-frw, -frw);
+////			Rectangle bufferBounds = new Rectangle(frw, frw, w, h);
 ////			addRenderingHintsForAntialiasing(g);
-////
-//			g.setColor(background);
-//			g.fillRect(0, top, imgBuffer.getWidth(), bottom - top);
-////
-//			Graphics2D bg = bimage.createGraphics();
-//			Rectangle shape = new Rectangle(frw, frw, width, prefViewHeight);
-//			bg.setClip(0, 0, width, height);
-//			bg.translate(-frw, -ytop - frw);
-			//addRenderingHintsForAntialiasing(bg);
-//			view.paint(bg, shape);
-//			//editorPane.getUI().paint(bimage.getGraphics(), editorPane.getRootPane());
-//
-//			File outputfile = new File("/Users/peter/Desktop/fuck_imgBuffer.png");
-//			try {
-//				ImageIO.write(bimage, "png", outputfile);
-//			} catch (IOException ex) {
-//				Exceptions.printStackTrace(ex);
-//				io.getOut().println("h2 " + ex.getMessage());
-//			}
-			BufferedImage bimage = toBufferedImage(jtc);
-//			if (start) {
-//				makeImage(bimage, "file1.png");
-//			}
-//			bimage = resize(bimage, width, height);
-//			if (start) {
-//				io.getOut().print("w=" + width + ", h=" + height);
-//				makeImage(bimage, "file2.png");
-//			}
-
-//			g.drawImage(bimage, 0, top,
-//					imgBuffer.getWidth(),
-//					bottom, 0, 0, width, height, null);
-			g.drawImage(bimage, 0, 0, null);
-
-//			bg.dispose();
-		} else {
-			// Scaling not necessary
-//			int w = imgBuffer.getWidth();
-//			int h = myHeight;
-//
-//			Rectangle rb = new Rectangle();
-//			rb.x = 0;
-//			rb.y = Math.max(0, top);
-//			rb.width = imgBuffer.getWidth();
-//			rb.height = bottom - top;
-//
-//			g.setClip(rb);
-//			g.setColor(background);
-//			g.fillRect(rb.x, rb.y, rb.width, rb.height);
-//
-//			// Draw the code on the buffer image:
-//			g.translate(-frw, -frw);
-//			Rectangle bufferBounds = new Rectangle(frw, frw, w, h);
-//			addRenderingHintsForAntialiasing(g);
-//			view.paint(g, bufferBounds);
-		}
-		g.dispose();
+////			view.paint(g, bufferBounds);
+//		}
+//		g.dispose();
 	}
 
 	public static BufferedImage resize(BufferedImage img, int newW, int newH) {
