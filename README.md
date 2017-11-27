@@ -1,6 +1,10 @@
 <hr>
 <h1 style="color: #FF0000">Looking for maintainers, who want to take over the development!</h1>
 <hr>
+Have a look at a colorful alternative plugin http://plugins.netbeans.org/plugin/71031/minimap !
+<hr>
+
+
 This plugins adds a code overview/outline for the current editor. Implements  <a href="https://netbeans.org/bugzilla/show_bug.cgi?id=199663">https://netbeans.org/bugzilla/show_bug.cgi?id=199663</a>
 
 <p>
