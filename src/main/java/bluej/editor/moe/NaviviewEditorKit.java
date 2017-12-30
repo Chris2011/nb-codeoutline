@@ -22,11 +22,9 @@
 package bluej.editor.moe;
 
 import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
-import org.openide.text.NbDocument;
 
 /**
  * An EditorKit implementation for the NaviView. The main purpose is to provide a NaviviewView as

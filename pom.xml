@@ -114,6 +114,11 @@
             <artifactId>org-netbeans-modules-editor</artifactId>
             <version>RELEASE80</version>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-openide-io</artifactId>
+            <version>RELEASE80</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -123,7 +128,7 @@
 
 &lt;p&gt;
 &lt;img src="https://raw.githubusercontent.com/markiewb/nb-codeoutline/master/doc/screenshot1.3.png"/&gt;
- &lt;/p&gt; 
+ &lt;/p&gt;
 &lt;h2&gt;Updates&lt;/h2&gt;
 &lt;h3&gt;1.3.2:&lt;/h3&gt;
 &lt;ul&gt;

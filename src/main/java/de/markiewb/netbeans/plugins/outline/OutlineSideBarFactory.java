@@ -28,37 +28,34 @@ import javax.swing.text.JTextComponent;
  */
 public class OutlineSideBarFactory implements org.netbeans.spi.editor.SideBarFactory {
 
-    @Override
-    public JComponent createSideBar(JTextComponent jtc) {
+	@Override
+	public JComponent createSideBar(JTextComponent jtc) {
+		/**
+		 * <pre>
+		 * jtc.getParent()                              #8227	NbEditorUI$LayeredEditorPane
+		 * jtc.getParent().getParent()                  #8233	JViewport
+		 * jtc.getParent().getParent().getParent()	#8234	JScrollPane
+		 * </pre>
+		 */
+		Container parent = jtc.getParent();
+		if (null == parent) {
+			return null;
+		}
+		parent = parent.getParent();
+		if (null == parent) {
+			return null;
+		}
+		// a new container JViewport has been introduced in 8.2
+		parent = parent.getParent();
+		if (null == parent) {
+			return null;
+		}
+		if (parent instanceof JScrollPane && null != jtc.getDocument()) {
+			JScrollPane scrollPane = (JScrollPane) parent;
+			return new NaviViewExt(jtc, jtc.getDocument(), scrollPane.getVerticalScrollBar());
+		}
 
-        /**
-         * <pre>
-         * jtc.getParent()                              #8227	NbEditorUI$LayeredEditorPane
-         * jtc.getParent().getParent()                  #8233	JViewport
-         * jtc.getParent().getParent().getParent()	#8234	JScrollPane
-         * </pre>
-         */
-        Container parent = jtc.getParent();
-        if (null == parent) {
-            return null;
-        }
-        parent = parent.getParent();
-        if (null == parent) {
-            return null;
-        }
-        // a new container JViewport has been introduced in 8.2
-        parent = parent.getParent();
-        if (null == parent) {
-            return null;
-        }
-        if (parent instanceof JScrollPane && null != jtc.getDocument()) {
-
-            JScrollPane scrollPane = (JScrollPane) parent;
-
-            return new NaviViewExt(jtc.getDocument(), scrollPane.getVerticalScrollBar());
-        }
-        return null;
-
-    }
+		return null;
+	}
 
 }
